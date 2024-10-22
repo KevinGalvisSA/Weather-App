@@ -44,6 +44,7 @@ La aplicación debería abrirse en el puerto `http://localhost:5173/`.
 
 - Al cargar la aplicación, verás el clima actual en Bucaramanga.
 - Puedes desplazarte hacia abajo para ver el pronóstico y demás información relevante.
+- Puedes utilizar el buscador para consultar la información de otras localidades
 - Puedes darle al botón de "10 days" para ver el pronóstico de los próximos 10 días.
 - Al hacer clic en el pronóstico horario, puedes arrastrar para explorar las temperaturas y probabilidades de lluvia para cada hora.
 
