@@ -1,1 +1,0 @@
-/* Creacion de los componentes utilizados para el diseño */

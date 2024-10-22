@@ -1,0 +1,50 @@
+.weather-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+.weather-box {
+    background-color: #ece3fb;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 30px; /* Ajuste de altura */
+    width: 130px; /* Ajuste de anchura */
+}
+
+.icon-text {
+    display: flex;
+    align-items: center;
+}
+.icon-text img{
+    width: 20px; /* Ajusta el tamaño de la imagen */
+    height: 20px;
+}
+
+.weather-data {
+    width: 7rem;
+    display: flex;
+    flex-direction: column; /* Coloca el título y valor en columna */
+    align-items: stretch; /* Alinea los elementos a la derecha */
+    padding-left: .3rem;
+    gap: .5rem;
+}
+
+.weather-data span:first-child {
+    font-size: 13px; /* Título del dato */
+    font-weight: bold;
+}
+
+.weather-data span:last-child {
+    font-size: 12px; /* Título del dato */
+}
+
+.weather-var{
+    width: 3rem;
+    margin-top: 2rem;
+    font-size: .65rem;
+}

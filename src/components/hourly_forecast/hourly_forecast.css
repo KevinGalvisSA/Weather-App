@@ -1,0 +1,52 @@
+.forecast-container {
+    background-color: #f6e6ff;
+    padding: 20px;
+    border-radius: 15px;
+    width: 310px;
+    margin-left: 1rem;
+}
+
+.forecast-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.forecast-header img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.forecast-header span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.forecast-hours {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.forecast-hour {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.forecast-hour .hour {
+    font-size: 14px;
+    color: #6f6f6f;
+}
+
+.weather-icon {
+    width: 20px;
+    height: 20px;
+    margin: 5px 0;
+}
+
+.temperature {
+    font-size: 16px;
+    font-weight: bold;
+}
