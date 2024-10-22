@@ -1,0 +1,27 @@
+/* Diseño por defecto */
+.default .bar-chart_container,
+.default .top,
+.default .buttons,
+.default .weather-changes,
+.default .hourly-forecast,
+.default .forecast-chart {
+  transition: all 0.5s ease;
+}
+
+/* Diseño cuando se hace scroll */
+.scrolled .bar-chart_container,
+.scrolled .top,
+.scrolled .buttons,
+.scrolled .weather-changes,
+.scrolled .hourly-forecast,
+.scrolled .forecast-chart {
+  background-color: #fce4ec;
+  color: #880e4f;
+  transition: all 0.5s ease;
+}
+
+/* Punto de referencia invisible para el IntersectionObserver */
+.scroll-trigger {
+  height: 1px;
+  width: 100%;
+}

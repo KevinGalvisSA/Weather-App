@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import background from '../../storage/img/background.png';
-import cloudy from '../../storage/img/cloudy.png';
 import './weather_top.css';
 
-function Top() {
+function Top({ isScrolled }) {
   const [weatherData, setWeatherData] = useState(null); // Estado para almacenar los datos del clima
   const [loading, setLoading] = useState(true); // Estado para manejar la carga
   const [error, setError] = useState(null); // Estado para manejar errores
 
   // Se ejecuta cuando el componente se monta
   useEffect(() => {
-    // Función para obtener datos de la API del clima
     const fetchWeatherData = async () => {
       try {
         const response = await fetch(
@@ -20,15 +18,15 @@ function Top() {
           throw new Error("Error al obtener los datos del clima");
         }
         const data = await response.json();
-        setWeatherData(data); // Almacenar los datos del clima en el estado
-        setLoading(false); // Quitar el estado de carga
+        setWeatherData(data);
+        setLoading(false);
       } catch (error) {
         setError(error.message);
-        setLoading(false); // Quitar el estado de carga aunque haya un error
+        setLoading(false);
       }
     };
 
-    fetchWeatherData(); // Llamada a la función de API
+    fetchWeatherData();
   }, []);
 
   // Mostrar un mensaje de carga
@@ -44,7 +42,7 @@ function Top() {
   // Si los datos están cargados, mostrar la información del clima
   if (weatherData) {
     return (
-      <div className="top">
+      <div className={`top ${isScrolled ? 'scrolled sticky' : ''}`}>
         <div className="title">
           <p>{weatherData.location.name}, {weatherData.location.country}</p>
           <i className='bx bx-search-alt-2'></i>
@@ -63,7 +61,8 @@ function Top() {
           <p>{weatherData.location.localtime}</p>
           <h6>Día {weatherData.current.temp_c}° <br /> Noche -1°</h6> {/* Este dato es ficticio, puedes ajustarlo */}
         </div>
-        <img className="background" src={background} alt="fondo" />
+        {/* Ocultar la imagen de fondo si está desplazado */}
+        {!isScrolled && <img className="background" src={background} alt="fondo" />}
       </div>
     );
   }
