@@ -1,5 +1,6 @@
 /* Estilos por defecto */
 body {
+    background: #F6EDFF;
     height: 300px; /* Temporalmente para probar el scroll */
 }
 
@@ -37,6 +38,14 @@ body {
 /* Ocultar la imagen de fondo cuando se ha desplazado */
 .scrolled .background {
     display: none;
+}
+
+.title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .title, .weather_info, .weather_date {

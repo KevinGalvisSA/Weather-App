@@ -9,12 +9,10 @@ const Bar_Chart = () => {
     const [startY, setStartY] = useState(0); // Posición inicial del mouse
     const [scrollTop, setScrollTop] = useState(0); // Posición de desplazamiento
 
-    const API_KEY = '246a52abe74049febc222157242210'; // Reemplaza con tu clave de API
-
     useEffect(() => {
         const fetchWeatherData = async () => {
             try {
-                const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=Floridablanca&lang=es&days=1`);
+                const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=Bucaramanga&lang=es&days=1`);
                 const weatherData = await response.json();
 
                 // Obtén la probabilidad de lluvia para las horas
@@ -32,7 +30,7 @@ const Bar_Chart = () => {
         };
 
         fetchWeatherData();
-    }, [API_KEY]);
+    });
 
     // Manejo del arrastre vertical
     const onMouseDown = (e) => {

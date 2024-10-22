@@ -5,7 +5,8 @@
 .default .weather-changes,
 .default .hourly-forecast,
 .default .forecast-chart {
-  transition: all 0.5s ease;
+    background: #F6EDFF;
+    transition: all 0.5s ease;
 }
 
 /* Diseño cuando se hace scroll */
@@ -15,8 +16,7 @@
 .scrolled .weather-changes,
 .scrolled .hourly-forecast,
 .scrolled .forecast-chart {
-  background-color: #fce4ec;
-  color: #880e4f;
+  background: #F6EDFF;
   transition: all 0.5s ease;
 }
 

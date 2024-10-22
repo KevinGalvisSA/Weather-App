@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import './hourly_forecast.css'; // Asegúrate de enlazar el archivo CSS correcto
-import clouds from "../../storage/img/Clouds.png";
-import cloudy from '../../storage/img/cloudy.png';
 import history from "../../storage/img/history_toggle_off.png";
 
 const HourlyForecast = () => {
@@ -15,7 +13,7 @@ const HourlyForecast = () => {
     const fetchForecastData = async () => {
       try {
         const response = await fetch(
-          "http://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=Floridablanca&lang=es&days=14"
+          "http://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=Bucaramanga&lang=es&days=14"
         );
 
         if (!response.ok) {
@@ -27,7 +25,7 @@ const HourlyForecast = () => {
         // Extraer la información horaria del pronóstico
         const hours = data.forecast.forecastday[0].hour.map((hour) => ({
           time: hour.time.split(" ")[1], // Solo la hora
-          icon: `//cdn.weatherapi.com/weather/64x64/${hour.is_day ? 'day' : 'night'}/${hour.condition.code}.png`, // Icono basado en el estado
+          icon: `https:${hour.condition.icon}`, // URL absoluta para el ícono del clima
           temperature: hour.temp_c // Temperatura en °C
         }));
         

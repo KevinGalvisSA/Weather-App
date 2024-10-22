@@ -1,12 +1,12 @@
 import React from "react";
 import './slide_button.css'
 
-function Buttons({ isScrolled }) {
+function Buttons({ isScrolled, onTodayClick, onTenDaysClick }) {
     return (
         <div className={`slide_buttons ${isScrolled ? 'buttons-sticky' : ''}`}>
-            <button>Today</button>
+            <button onClick={onTodayClick}>Today</button>
             <button>Tomorrow</button>
-            <button>10 days</button>
+            <button onClick={onTenDaysClick}>10 days</button>
         </div>
     );
 }

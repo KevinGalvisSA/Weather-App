@@ -20,7 +20,7 @@ const ForecastChart = () => {
     const fetchForecastData = async () => {
       try {
         const response = await fetch(
-          "http://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=Floridablanca&lang=es&days=7" // Cambia el número de días según sea necesario
+          "http://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=Bucaramanga&lang=es&days=7" // Cambia el número de días según sea necesario
         );
 
         if (!response.ok) {
