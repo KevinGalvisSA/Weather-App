@@ -5,6 +5,7 @@ import Buttons from './components/slide_button/slide_button'
 import WeatherChanges from './components/weather_changes_data/weather_data'
 import HourlyForecast from './components/hourly_forecast/hourly_forecast'
 import ForecastChart from './components/graph_forecast/graph_forecast'
+import Bar_Chart from './components/bar_chart/bar_chart'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <WeatherChanges></WeatherChanges>
       <HourlyForecast></HourlyForecast>
       <ForecastChart></ForecastChart>
+      <Bar_Chart></Bar_Chart>
     </>
   )
 }

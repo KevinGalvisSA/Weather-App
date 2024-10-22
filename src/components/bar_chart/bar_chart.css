@@ -1,0 +1,66 @@
+.bar-chart_container {
+    background-color: #e0d7f5;
+    border-radius: 10px;
+    margin-left: 1rem;
+    margin-top: 1.5rem;
+    padding: 10px;
+    width: 330px; /* Ajusta el ancho según tus necesidades */
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en columna */
+    align-self: start;
+    overflow-y: auto; /* Permitir desplazamiento vertical */
+    max-height: 150px; /* Ajusta la altura máxima según tus necesidades */
+}
+
+/* Ocultar el scrollbar */
+.bar-chart_container::-webkit-scrollbar {
+    display: none; /* Oculta el scrollbar en Chrome, Safari y Opera */
+}
+
+.bar-chart_container {
+    -ms-overflow-style: none; /* Oculta el scrollbar en Internet Explorer y Edge */
+    scrollbar-width: none; /* Oculta el scrollbar en Firefox */
+}
+
+.bar_title {
+    display: flex;
+    align-items: center;
+    padding-left: .5rem;
+    gap: .8rem;
+}
+
+.bar_title .tittle {
+    font-size: 16px;
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%; /* Asegura que cada barra ocupe el ancho completo */
+}
+
+.label {
+    width: 60px;
+    font-weight: bold;
+}
+
+.progress-container {
+    background-color: #ffffff; /* Color de fondo de la barra */
+    border-radius: 50px; /* Borde redondeado */
+    flex-grow: 1; /* Para que la barra ocupe el espacio restante */
+    overflow: hidden; /* Para recortar el contenido interno */
+    height: 20px; /* Altura de la barra */
+    margin: 0 10px;
+}
+
+.progress {
+    background-color: #6a0dad; /* Color que indica el porcentaje */
+    height: 100%; /* Ajusta la altura para que ocupe todo el contenedor */
+    border-radius: 50px; /* Borde redondeado para el progreso */
+}
+
+.percentage {
+    width: 40px;
+    text-align: right;
+}
