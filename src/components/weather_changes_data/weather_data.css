@@ -12,38 +12,38 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 30px; /* Ajuste de altura */
-    width: 130px; /* Ajuste de anchura */
+    height: 30px;
+    width: 130px;
 }
 
 .icon-text {
     display: flex;
     align-items: center;
 }
-.icon-text img{
-    width: 20px; /* Ajusta el tamaño de la imagen */
+.icon-text img {
+    width: 20px;
     height: 20px;
 }
 
 .weather-data {
     width: 7rem;
     display: flex;
-    flex-direction: column; /* Coloca el título y valor en columna */
-    align-items: stretch; /* Alinea los elementos a la derecha */
+    flex-direction: column;
+    align-items: stretch;
     padding-left: .3rem;
     gap: .5rem;
 }
 
 .weather-data span:first-child {
-    font-size: 13px; /* Título del dato */
+    font-size: 13px;
     font-weight: bold;
 }
 
 .weather-data span:last-child {
-    font-size: 12px; /* Título del dato */
+    font-size: 12px;
 }
 
-.weather-var{
+.weather-var {
     width: 3rem;
     margin-top: 2rem;
     font-size: .65rem;

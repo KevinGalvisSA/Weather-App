@@ -1,98 +1,93 @@
 import React, { useEffect, useState } from "react";
-import './hourly_forecast.css'; // Asegúrate de enlazar el archivo CSS correcto
+import './hourly_forecast.css';
 import history from "../../storage/img/history_toggle_off.png";
 
 const HourlyForecast = () => {
-  // Estado para almacenar los datos del pronóstico
-  const [forecastData, setForecastData] = useState([]);
-  const [loading, setLoading] = useState(true); // Estado de carga
-  const icon = history;
+  const [forecastData, setForecastData] = useState([]); // * Estado para almacenar los datos del pronóstico
+  const [loading, setLoading] = useState(true); // * Estado para controlar la carga de datos
+  const icon = history; // * Icono para la cabecera del pronóstico
 
   useEffect(() => {
-    // Función para obtener datos de la API
     const fetchForecastData = async () => {
       try {
         const response = await fetch(
-          "http://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=Bucaramanga&lang=es&days=14"
+          "http://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=Bucaramanga&lang=es&days=14" // * URL de la API para obtener el pronóstico
         );
 
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Network response was not ok'); // * Manejo de errores en la respuesta
         }
 
-        const data = await response.json();
-        
-        // Extraer la información horaria del pronóstico
+        const data = await response.json(); // * Convertir la respuesta en JSON
         const hours = data.forecast.forecastday[0].hour.map((hour) => ({
-          time: hour.time.split(" ")[1], // Solo la hora
-          icon: `https:${hour.condition.icon}`, // URL absoluta para el ícono del clima
-          temperature: hour.temp_c // Temperatura en °C
+          time: hour.time.split(" ")[1], // * Obtener solo la hora de la fecha
+          icon: `https:${hour.condition.icon}`, // * URL del icono del clima
+          temperature: hour.temp_c // * Temperatura en Celsius
         }));
         
-        setForecastData(hours); // Actualizar el estado con los datos obtenidos
+        setForecastData(hours); // * Actualizar el estado con los datos del pronóstico por hora
       } catch (error) {
-        console.error("Error fetching weather data:", error);
+        console.error("Error fetching weather data:", error); // * Mostrar error en la consola
       } finally {
-        setLoading(false); // Cambiar el estado de carga a false al final
+        setLoading(false); // * Finalizar la carga de datos
       }
     };
 
-    fetchForecastData(); // Llamar a la función para obtener los datos
-  }, []); // El array vacío asegura que esto solo se ejecute una vez al montar el componente
+    fetchForecastData(); // * Llamar a la función para obtener los datos
+  }, []);
 
-  // Variables para el manejo del desplazamiento
+  // * Variables para controlar el desplazamiento con el ratón
   let isDown = false;
   let startX;
   let scrollLeft;
 
-  // Funciones para el manejo de eventos de desplazamiento
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e) => { // * Iniciar desplazamiento
     isDown = true;
     startX = e.pageX - e.currentTarget.offsetLeft;
     scrollLeft = e.currentTarget.scrollLeft;
-    e.currentTarget.style.cursor = 'grabbing'; // Cambia el cursor al arrastrar
+    e.currentTarget.style.cursor = 'grabbing'; // * Cambiar el cursor
   };
 
-  const handleMouseLeave = (e) => {
+  const handleMouseLeave = (e) => { // * Al salir del área, detener desplazamiento
     isDown = false;
-    e.currentTarget.style.cursor = 'grab'; // Cambia el cursor de nuevo al salir
+    e.currentTarget.style.cursor = 'grab'; // * Cambiar el cursor
   };
 
-  const handleMouseUp = (e) => {
+  const handleMouseUp = (e) => { // * Al soltar el botón del ratón, detener desplazamiento
     isDown = false;
-    e.currentTarget.style.cursor = 'grab'; // Cambia el cursor de nuevo al soltar
+    e.currentTarget.style.cursor = 'grab'; // * Cambiar el cursor
   };
 
-  const handleMouseMove = (e) => {
-    if (!isDown) return; // Detener si no se está arrastrando
-    e.preventDefault(); // Prevenir la selección de texto
-    const x = e.pageX - e.currentTarget.offsetLeft;
-    const walk = (x - startX) * 2; // Factor de velocidad (ajusta como desees)
-    e.currentTarget.scrollLeft = scrollLeft - walk;
+  const handleMouseMove = (e) => { // * Manejar el movimiento del ratón para desplazarse
+    if (!isDown) return; // * No hacer nada si no se está desplazando
+    e.preventDefault(); // * Prevenir el comportamiento predeterminado
+    const x = e.pageX - e.currentTarget.offsetLeft; // * Calcular la posición del ratón
+    const walk = (x - startX) * 2; // * Calcular la distancia desplazada
+    e.currentTarget.scrollLeft = scrollLeft - walk; // * Actualizar la posición de desplazamiento
   };
 
   return (
-    <div className="forecast-container">
-      <div className="forecast-header">
-        <img src={icon} alt="Forecast icon" />
-        <span>Hourly forecast</span>
+    <div className="forecast-container"> {/* * Contenedor principal del pronóstico */}
+      <div className="forecast-header"> {/* * Cabecera del pronóstico */}
+        <img src={icon} alt="Forecast icon" /> {/* * Icono del pronóstico */}
+        <span>Hourly forecast</span> {/* * Título del pronóstico */}
       </div>
-      {loading ? ( // Mostrar el estado de carga
-        <div className="loading">Loading...</div> // Aquí puedes agregar un spinner si lo deseas
+      {loading ? ( // * Mostrar carga mientras se obtienen los datos
+        <div className="loading">Loading...</div>
       ) : (
         <div
-          className="forecast-hours"
-          onMouseDown={handleMouseDown}
-          onMouseLeave={handleMouseLeave}
-          onMouseUp={handleMouseUp}
-          onMouseMove={handleMouseMove}
-          style={{ cursor: 'grab' }} // Estilo del cursor
+          className="forecast-hours" // * Contenedor para horas del pronóstico
+          onMouseDown={handleMouseDown} // * Manejar el inicio del desplazamiento
+          onMouseLeave={handleMouseLeave} // * Manejar cuando se sale del área
+          onMouseUp={handleMouseUp} // * Manejar cuando se suelta el botón del ratón
+          onMouseMove={handleMouseMove} // * Manejar el movimiento del ratón
+          style={{ cursor: 'grab' }} // * Estilo del cursor
         >
-          {forecastData.map((hour, index) => (
-            <div key={index} className="forecast-hour">
-              <span className="hour">{hour.time}</span>
-              <img src={hour.icon} alt={`${hour.time} weather`} className="weather-icon" />
-              <span className="temperature">{hour.temperature}°</span>
+          {forecastData.map((hour, index) => ( // * Mapear los datos de pronóstico por hora
+            <div key={index} className="forecast-hour"> {/* * Contenedor de cada hora */}
+              <span className="hour">{hour.time}</span> {/* * Mostrar la hora */}
+              <img src={hour.icon} alt={`${hour.time} weather`} className="weather-icon" /> {/* * Icono del clima */}
+              <span className="temperature">{hour.temperature}°</span> {/* * Mostrar temperatura */}
             </div>
           ))}
         </div>

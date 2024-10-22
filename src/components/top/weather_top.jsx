@@ -3,71 +3,67 @@ import background from '../../storage/img/background.png';
 import './weather_top.css';
 
 function Top({ isScrolled }) {
-  const [weatherData, setWeatherData] = useState(null); // Estado para almacenar los datos del clima
-  const [loading, setLoading] = useState(true); // Estado para manejar la carga
-  const [error, setError] = useState(null); // Estado para manejar errores
+  const [weatherData, setWeatherData] = useState(null); // ? Estado para almacenar los datos del clima
+  const [loading, setLoading] = useState(true); // ? Estado para controlar la carga de datos
+  const [error, setError] = useState(null); // ? Estado para manejar errores
 
-  // Se ejecuta cuando el componente se monta
   useEffect(() => {
+    // * Función para obtener datos del clima desde la API
     const fetchWeatherData = async () => {
       try {
         const response = await fetch(
           'http://api.weatherapi.com/v1/current.json?key=246a52abe74049febc222157242210&q=Bucaramanga&lang=es'
         );
         if (!response.ok) {
-          throw new Error("Error al obtener los datos del clima");
+          throw new Error("Error al obtener los datos del clima"); // * Manejo de errores si la respuesta no es exitosa
         }
         const data = await response.json();
-        setWeatherData(data);
-        setLoading(false);
+        setWeatherData(data); // * Almacenar los datos del clima en el estado
+        setLoading(false); // * Cambiar el estado de carga a falso
       } catch (error) {
-        setError(error.message);
-        setLoading(false);
+        setError(error.message); // * Almacenar el mensaje de error en el estado
+        setLoading(false); // * Cambiar el estado de carga a falso
       }
     };
 
-    fetchWeatherData();
-  }, []);
+    fetchWeatherData(); // * Llamar a la función para obtener los datos del clima
+  }, []); // * Ejecutar este efecto solo una vez al montar el componente
 
-  // Mostrar un mensaje de carga
   if (loading) {
-    return <p>Cargando...</p>;
+    return <p>Cargando...</p>; // * Mensaje de carga mientras se obtienen los datos
   }
 
-  // Mostrar un mensaje de error
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>Error: {error}</p>; // * Mostrar mensaje de error si hay un problema
   }
 
-  // Si los datos están cargados, mostrar la información del clima
   if (weatherData) {
     return (
-      <div className={`top ${isScrolled ? 'scrolled sticky' : ''}`}>
+      <div className={`top ${isScrolled ? 'scrolled sticky' : ''}`}> {/* * Cambia la clase según el estado de desplazamiento */}
         <div className="title">
-          <p>{weatherData.location.name}, {weatherData.location.country}</p>
-          <i className='bx bx-search-alt-2'></i>
+          <p>{weatherData.location.name}, {weatherData.location.country}</p> {/* * Mostrar la ubicación */}
+          <i className='bx bx-search-alt-2'></i> {/* * Icono de búsqueda */}
         </div>
         <div className="weather_info">
           <div className="info_data">
-            <h1>{weatherData.current.temp_c}°</h1>
-            <p>Feels like {weatherData.current.feelslike_c}°</p>
+            <h1>{weatherData.current.temp_c}°</h1> {/* * Mostrar temperatura actual */}
+            <p>Feels like {weatherData.current.feelslike_c}°</p> {/* * Mostrar sensación térmica */}
           </div>
           <div className="info_image">
-            <img className="weather" src={`http:${weatherData.current.condition.icon}`} alt="clima" />
-            <p>{weatherData.current.condition.text}</p>
+            <img className="weather" src={`http:${weatherData.current.condition.icon}`} alt="clima" /> {/* * Mostrar icono del clima */}
+            <p>{weatherData.current.condition.text}</p> {/* * Mostrar descripción del clima */}
           </div>
         </div>
         <div className="weather_date">
-          <p>{weatherData.location.localtime}</p>
-          <h6>Día {weatherData.current.temp_c}° <br /> Noche -1°</h6> {/* Este dato es ficticio, puedes ajustarlo */}
+          <p>{weatherData.location.localtime}</p> {/* * Mostrar la hora local */}
+          <h6>Día {weatherData.current.temp_c}° <br /> Noche -1°</h6> {/* * Mostrar temperaturas diurna y nocturna */}
         </div>
-        {/* Ocultar la imagen de fondo si está desplazado */}
-        {!isScrolled && <img className="background" src={background} alt="fondo" />}
+        {!isScrolled && <img className="background" src={background} alt="fondo" />} {/* * Mostrar fondo solo si no se ha desplazado */}
       </div>
     );
   }
 
-  return null;
+  return null; // * Retornar null si no hay datos de clima
 }
 
 export default Top;

@@ -1,5 +1,5 @@
 .chart-container {
-    position: relative; /* Importante para la imagen centrada */
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,6 +27,6 @@
     font-weight: 500;
     color: #333;
     padding-left: 3.5rem;
-    z-index: 1; /* El texto se muestra por encima de la imagen */
+    z-index: 1;
   }
   

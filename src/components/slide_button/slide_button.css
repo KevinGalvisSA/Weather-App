@@ -8,13 +8,12 @@
     transition: background-color 0.5s ease;
 }
 
-/* Comportamiento sticky para Buttons */
 .buttons-sticky {
     position: sticky;
-    top: 200px; /* Ajustar esto para que esté justo debajo del componente Top */
+    top: 200px; 
     z-index: 9;
-    background-color: #d1b3ff; /* Opcional: color de fondo al volverse sticky */
-    padding: 10px 0; /* Opcional: agregar padding */
+    background-color: #d1b3ff; 
+    padding: 10px 0;
 }
 
 .slide_buttons button {
