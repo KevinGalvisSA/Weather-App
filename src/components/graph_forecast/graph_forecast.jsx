@@ -86,4 +86,4 @@ const CustomLabel = ({ value }) => { // * Componente para etiquetas personalizad
   );
 };
 
-export default ForecastChart; // * Exportar el componente ForecastChart
+export default ForecastChart; 

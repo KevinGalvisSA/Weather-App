@@ -67,7 +67,7 @@ const Bar_Chart = () => {
             {loading ? ( // * Mostrar carga mientras se obtienen los datos
                 <div className="loading">Cargando...</div>
             ) : (
-                data.map((item) => ( // * Mostrar datos del pronóstico
+                data.map((item) => ( 
                     <div key={item.time} className="bar"> {/* * Contenedor para cada barra */}
                         <span className="label">{item.time}</span> {/* * Hora */}
                         <div className="progress-container"> {/* * Contenedor de la barra de progreso */}

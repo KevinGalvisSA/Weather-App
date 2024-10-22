@@ -54,13 +54,13 @@ function App() {
       />
       {/* * Renderizado condicional de los componentes de pronóstico */}
       {showTenDays ? (
-        <TenDaysForecast /> // * Mostrar pronóstico de diez días
+        <TenDaysForecast /> 
       ) : (
         <>
-          <WeatherChanges /> // * Mostrar cambios climáticos actuales
-          <HourlyForecast /> // * Mostrar pronóstico horario
-          <ForecastChart /> // * Mostrar gráfico del pronóstico
-          <Bar_Chart /> // * Mostrar gráfico de barras para probabilidades de lluvia
+          <WeatherChanges /> 
+          <HourlyForecast />
+          <ForecastChart /> 
+          <Bar_Chart />
         </>
       )}
     </>
