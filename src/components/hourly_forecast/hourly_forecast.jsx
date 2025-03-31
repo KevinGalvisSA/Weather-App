@@ -11,7 +11,7 @@ const HourlyForecast = () => {
     const fetchForecastData = async () => {
       try {
         const response = await fetch(
-          "http://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=Bucaramanga&lang=es&days=14" // * URL de la API para obtener el pronóstico
+          "http://api.weatherapi.com/v1/forecast.json?key=7af1b748bc5245ed8ed163507253103&q=Bucaramanga&lang=es&days=14" // * URL de la API para obtener el pronóstico
         );
 
         if (!response.ok) {

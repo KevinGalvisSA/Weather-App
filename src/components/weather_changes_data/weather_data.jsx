@@ -16,7 +16,7 @@ const WeatherChanges = () => {
         const fetchWeatherData = async () => {
             try {
                 const response = await fetch(
-                    'http://api.weatherapi.com/v1/current.json?key=246a52abe74049febc222157242210&q=Bucaramanga&lang=es'
+                    'http://api.weatherapi.com/v1/current.json?key=7af1b748bc5245ed8ed163507253103&q=Bucaramanga&lang=es'
                 );
                 if (!response.ok) {
                     throw new Error('Error fetching weather data'); // * Manejo de errores si la respuesta no es exitosa

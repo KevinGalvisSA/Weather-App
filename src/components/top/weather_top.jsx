@@ -18,7 +18,7 @@ function Top({ isScrolled }) {
       try {
         setLoading(true); 
         const response = await fetch(
-          `http://api.weatherapi.com/v1/current.json?key=246a52abe74049febc222157242210&q=${selectedCity}&lang=es`
+          `http://api.weatherapi.com/v1/current.json?key=7af1b748bc5245ed8ed163507253103&q=${selectedCity}&lang=es`
         );
         if (!response.ok) {
           throw new Error("Error al obtener los datos del clima");
