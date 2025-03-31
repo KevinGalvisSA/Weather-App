@@ -5,7 +5,6 @@ function Buttons({ isScrolled, onTodayClick, onTenDaysClick }) {
     return (
         <div className={`slide_buttons ${isScrolled ? 'buttons-sticky' : ''}`}> {/* * Aplicar clase sticky para manejo de diseño si se ha desplazado */}
             <button onClick={onTodayClick}>Today</button> {/* * Botón para ver el pronóstico del día actual */}
-            <button>Tomorrow</button> {/* * Botón para ver el pronóstico de mañana (sin funcionalidad definida) */}
             <button onClick={onTenDaysClick}>10 days</button> {/* * Botón para ver el pronóstico de 10 días */}
         </div>
     );

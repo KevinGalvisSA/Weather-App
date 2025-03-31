@@ -1,79 +1,89 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState, useContext } from 'react';
+import { CityContext } from '../../citycontex.jsx'; // Importar el contexto de la ciudad
 import './bar_chart.css'; 
 import rainy from '../../storage/img/rainy.png';
 
 const Bar_Chart = () => {
-    const [data, setData] = useState([]); // * Estado para almacenar datos de lluvia
-    const [loading, setLoading] = useState(true); // * Estado para controlar la carga de datos
-    const [isDragging, setIsDragging] = useState(false); // * Estado para controlar si se está arrastrando
-    const [startY, setStartY] = useState(0); // * Almacenar la posición inicial del mouse en Y
-    const [scrollTop, setScrollTop] = useState(0); // * Almacenar la posición de desplazamiento actual
+    const { selectedCity } = useContext(CityContext); // Obtener la ciudad del contexto
+    const [data, setData] = useState([]); 
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null); // Estado para manejar errores
+    const [isDragging, setIsDragging] = useState(false);
+    const [startY, setStartY] = useState(0);
+    const [scrollTop, setScrollTop] = useState(0);
 
     useEffect(() => {
-        const fetchWeatherData = async () => { // * Función asíncrona para obtener datos del clima
+        if (!selectedCity) return; // Evita hacer la solicitud si no hay ciudad seleccionada
+
+        const fetchWeatherData = async () => {
             try {
-                const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=Bucaramanga&lang=es&days=1`); // * URL de la API
-                const weatherData = await response.json(); // * Convertir la respuesta a JSON
-                const hourlyData = weatherData.forecast.forecastday[0].hour.map(hour => ({ // * Mapear datos horarios
-                    time: hour.time.split(' ')[1], // * Obtener solo la hora
-                    chance: hour.chance_of_rain // * Obtener la probabilidad de lluvia
+                const response = await fetch(
+                    `http://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=${selectedCity}&lang=es&days=1`
+                );
+
+                if (!response.ok) {
+                    throw new Error("Error al obtener los datos del clima");
+                }
+
+                const weatherData = await response.json();
+                const hourlyData = weatherData.forecast.forecastday[0].hour.map(hour => ({
+                    time: hour.time.split(' ')[1],
+                    chance: hour.chance_of_rain
                 }));
-                setData(hourlyData); // * Actualizar el estado con los datos
+
+                setData(hourlyData);
             } catch (error) {
-                console.error('Error fetching weather data:', error); // * Mostrar error en consola
+                setError(error.message);
             } finally {
-                setLoading(false); // * Finalizar la carga de datos
+                setLoading(false);
             }
         };
 
-        fetchWeatherData(); // * Llamar a la función para obtener datos
-    }, []); // * Asegurarse de que se ejecute solo una vez al montar el componente
+        fetchWeatherData();
+    }, [selectedCity]); // Se ejecuta cuando cambia la ciudad seleccionada
 
-    // * Controladores de eventos para arrastrar
+    // Controladores de eventos para arrastrar
     const onMouseDown = (e) => {
-        setIsDragging(true); // * Indicar que se está arrastrando
-        setStartY(e.pageY - e.currentTarget.offsetTop); // * Obtener la posición Y inicial
-        setScrollTop(e.currentTarget.scrollTop); // * Almacenar la posición de desplazamiento
+        setIsDragging(true);
+        setStartY(e.pageY - e.currentTarget.offsetTop);
+        setScrollTop(e.currentTarget.scrollTop);
     };
 
-    const onMouseLeave = () => {
-        setIsDragging(false); // * Detener el arrastre al salir del área
-    };
-
-    const onMouseUp = () => {
-        setIsDragging(false); // * Detener el arrastre al soltar el mouse
-    };
+    const onMouseLeave = () => setIsDragging(false);
+    const onMouseUp = () => setIsDragging(false);
 
     const onMouseMove = (e) => {
-        if (!isDragging) return; // * Salir si no se está arrastrando
-        e.preventDefault(); // * Prevenir comportamiento por defecto
-        const y = e.pageY - e.currentTarget.offsetTop; // * Obtener la posición Y actual
-        const walk = (y - startY) * 1.5; // * Calcular el desplazamiento
-        e.currentTarget.scrollTop = scrollTop - walk; // * Ajustar el desplazamiento
+        if (!isDragging) return;
+        e.preventDefault();
+        const y = e.pageY - e.currentTarget.offsetTop;
+        const walk = (y - startY) * 1.5;
+        e.currentTarget.scrollTop = scrollTop - walk;
     };
 
     return (
         <div
-            className="bar-chart_container" // * Contenedor principal del gráfico de barras
-            onMouseDown={onMouseDown} // * Controlador de mouse down
-            onMouseLeave={onMouseLeave} // * Controlador de mouse leave
-            onMouseUp={onMouseUp} // * Controlador de mouse up
-            onMouseMove={onMouseMove} // * Controlador de mouse move
+            className="bar-chart_container"
+            onMouseDown={onMouseDown}
+            onMouseLeave={onMouseLeave}
+            onMouseUp={onMouseUp}
+            onMouseMove={onMouseMove}
         >
-            <div className='bar_title'> {/* * Título del gráfico */}
-                <img className='bar_image' src={rainy} alt="" /> {/* * Imagen de lluvia */}
-                <h2 className="tittle">Chance of Rain</h2> {/* * Título del gráfico */}
+            <div className='bar_title'>
+                <img className='bar_image' src={rainy} alt="" />
+                <h2 className="tittle">Chance of Rain - {selectedCity}</h2>
             </div>
-            {loading ? ( // * Mostrar carga mientras se obtienen los datos
+            {loading ? (
                 <div className="loading">Cargando...</div>
+            ) : error ? (
+                <div className="error">{error}</div>
             ) : (
-                data.map((item) => ( 
-                    <div key={item.time} className="bar"> {/* * Contenedor para cada barra */}
-                        <span className="label">{item.time}</span> {/* * Hora */}
-                        <div className="progress-container"> {/* * Contenedor de la barra de progreso */}
-                            <div className="progress" style={{ width: `${item.chance}%` }}></div> {/* * Barra de progreso */}
+                data.map((item) => (
+                    <div key={item.time} className="bar">
+                        <span className="label">{item.time}</span>
+                        <div className="progress-container">
+                            <div className="progress" style={{ width: `${item.chance}%` }}></div>
                         </div>
-                        <span className="percentage">{item.chance}%</span> {/* * Porcentaje de probabilidad */}
+                        <span className="percentage">{item.chance}%</span>
                     </div>
                 ))
             )}
