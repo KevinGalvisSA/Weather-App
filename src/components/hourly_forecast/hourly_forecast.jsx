@@ -16,7 +16,7 @@ const HourlyForecast = () => {
     const fetchForecastData = async () => {
       try {
         const response = await fetch(
-          `http://api.weatherapi.com/v1/forecast.json?key=7af1b748bc5245ed8ed163507253103&q=${selectedCity}&lang=es&days=1`
+          `https://api.weatherapi.com/v1/forecast.json?key=7af1b748bc5245ed8ed163507253103&q=${selectedCity}&lang=es&days=1`
         );
 
         if (!response.ok) {

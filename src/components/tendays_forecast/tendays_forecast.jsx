@@ -15,7 +15,7 @@ const TenDaysForecast = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `http://api.weatherapi.com/v1/forecast.json?key=7af1b748bc5245ed8ed163507253103&q=${selectedCity}&lang=es&days=10`
+          `https://api.weatherapi.com/v1/forecast.json?key=7af1b748bc5245ed8ed163507253103&q=${selectedCity}&lang=es&days=10`
         );
         const data = await response.json();
         setForecast(data.forecast?.forecastday || []); // Manejo seguro de datos

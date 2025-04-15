@@ -18,7 +18,7 @@ const Bar_Chart = () => {
         const fetchWeatherData = async () => {
             try {
                 const response = await fetch(
-                    `http://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=${selectedCity}&lang=es&days=1`
+                    `https://api.weatherapi.com/v1/forecast.json?key=246a52abe74049febc222157242210&q=${selectedCity}&lang=es&days=1`
                 );
 
                 if (!response.ok) {
